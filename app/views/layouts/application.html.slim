@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+    title
+      | ReactInventory
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application'
+  body.navbar__top_padding
+    = render partial: 'layouts/shared/navbar'
+    .row.row__no_right_margin
+      = render partial: 'layouts/shared/sidebar'
+      .col-lg-9.col-md-9.padded-content
+        = yield

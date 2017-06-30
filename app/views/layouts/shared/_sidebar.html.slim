@@ -1,0 +1,4 @@
+.col-lg-3.col-md-3
+  .list-group
+    = link_to 'Containers', root_path, class: "list-group-item list-group-item__unbordered list-group-item__unrounded text-center #{current_page?(root_path) ? 'active' : ''}"
+    = link_to 'Items', items_path, class: "list-group-item list-group-item__unbordered list-group-item__unrounded text-center #{current_page?(items_path) ? 'active' : ''}"
