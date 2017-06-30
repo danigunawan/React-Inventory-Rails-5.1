@@ -19,8 +19,6 @@ class ResultsPaginator
   end
 
   def paginated_results
-    puts "Current Page: #{@current_page}\n"
-    puts "Per Page: #{@per_page}\n"
     @results.paginate(page: @current_page, per_page: @per_page)
   end
 
