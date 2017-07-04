@@ -23,7 +23,7 @@ class ResultsPaginator
   end
 
   def paginated_results
-    @results.paginate(page: @current_page, per_page: @per_page)
+    @results.order(updated_at: :desc).paginate(page: @current_page, per_page: @per_page)
   end
 
   def set_current_page(current_page)

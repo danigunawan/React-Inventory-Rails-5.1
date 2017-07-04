@@ -3,22 +3,12 @@ import ReactDOM from 'react-dom'
 import { Button, Modal, FormGroup, FormControl, ControlLabel, Alert } from 'react-bootstrap'
 
 class ModalForm extends Component {
-  textInput(label){
-    return(
-      <FormGroup>
-        <ControlLabel>{label}</ControlLabel>
-        <FormControl id={label} type='text' value={this.props.record[label] ? this.props.record[label] : ""} onChange={this.props.handleInputChange}></FormControl>
-      </FormGroup>
-    )
-  }
-
-  textArea(label){
-    return(
-      <FormGroup>
-        <ControlLabel>{label}</ControlLabel>
-        <FormControl id={label} componentClass='textarea' value={this.props.record[label] ? this.props.record[label] : ""} onChange={this.props.handleInputChange}></FormControl>
-      </FormGroup>
-    )
+  renderError(){
+    if(this.props.modalErrors){
+      return(
+        <Alert bsStyle="danger" onDismiss={this.props.handleAlertDismiss}>{this.props.modalErrors}</Alert>
+      )
+    }
   }
 
   renderModalBody(){
@@ -33,12 +23,22 @@ class ModalForm extends Component {
     }
   }
 
-  renderError(){
-    if(this.props.modalErrors){
-      return(
-        <Alert bsStyle="danger" onDismiss={this.props.handleAlertDismiss}>{this.props.modalErrors}</Alert>
-      )
-    }
+  textArea(label){
+    return(
+      <FormGroup>
+        <ControlLabel>{label}</ControlLabel>
+        <FormControl id={label} componentClass='textarea' value={this.props.record[label] ? this.props.record[label] : ""} onChange={this.props.handleInputChange}></FormControl>
+      </FormGroup>
+    )
+  }
+
+  textInput(label){
+    return(
+      <FormGroup>
+        <ControlLabel>{label}</ControlLabel>
+        <FormControl id={label} type='text' value={this.props.record[label] ? this.props.record[label] : ""} onChange={this.props.handleInputChange}></FormControl>
+      </FormGroup>
+    )
   }
 
   render(){

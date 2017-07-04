@@ -16,7 +16,7 @@ class ContainersController < ApplicationController
   def update
     if @container.update(container_params)
       @paginator = ResultsPaginator.new(Container.all, current_page: params[:active_page].presence)
-      render json: { containers: @paginator.items, active_page: @paginator.get_current_page, total_pages: @paginator.displayed_page_count }, status: :ok
+      render json: { containers: @paginator.items, active_page: @paginator.get_current_page, total_pages: @paginator.displayed_page_count, message: "Successfully updated", transaction_status: "success" }, status: :ok
     else
       render json: { errors: @container.errors.full_messages.join("<br> ") }, status: :unprocessable_entity
     end
@@ -26,7 +26,7 @@ class ContainersController < ApplicationController
     new_container = Container.new(container_params)
     if new_container.save
       @paginator = ResultsPaginator.new(Container.all, current_page: params[:active_page].presence)
-      render json: { containers: @paginator.items, active_page: @paginator.get_current_page, total_pages: @paginator.displayed_page_count }, status: :ok
+      render json: { containers: @paginator.items, active_page: @paginator.get_current_page, total_pages: @paginator.displayed_page_count, message: "Successfully created", transaction_status: "success" }, status: :ok
     else
       render json: { errors: new_container.errors.full_messages.join("<br> ") }, status: :unprocessable_entity
     end
@@ -35,8 +35,9 @@ class ContainersController < ApplicationController
   def destroy
     if @container.destroy
       @paginator = ResultsPaginator.new(Container.all, current_page: params[:active_page].presence)
-      render json: { containers: @paginator.items, active_page: @paginator.get_current_page, total_pages: @paginator.displayed_page_count }, status: :ok
+      render json: { containers: @paginator.items, active_page: @paginator.get_current_page, total_pages: @paginator.displayed_page_count, message: "Successfully destroyed", transaction_status: "success" }, status: :ok
     else
+      render json: { message: @container.errors.full_messages.join("<br> "), transaction_status: "danger" }, status: :unprocessable_entity
     end
   end
 
