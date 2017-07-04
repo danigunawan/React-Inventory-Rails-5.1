@@ -1,13 +1,17 @@
 class ResultsPaginator
-  def initialize(results, current_page=1, per_page=9)
+  def initialize(results, current_page: 1, per_page: 9)
     set_results(results)
     set_total_entries
     set_per_page(per_page)
     set_current_page(current_page)
   end
 
+  def empty_results?
+    @results.empty?
+  end
+
   def displayed_page_count
-    paginated_results.total_pages
+    empty_results? ? 0 : @results.paginate(page: 1, per_page: @per_page).total_pages
   end
 
   def get_current_page
@@ -19,13 +23,16 @@ class ResultsPaginator
   end
 
   def paginated_results
-    puts "Current Page: #{@current_page}\n"
-    puts "Per Page: #{@per_page}\n"
     @results.paginate(page: @current_page, per_page: @per_page)
   end
 
   def set_current_page(current_page)
-    @current_page = current_page.to_i
+    current_page = current_page.to_i
+    @current_page = if (current_page > displayed_page_count && !displayed_page_count.zero?)
+      displayed_page_count
+    else
+      current_page.zero? ? 1 : current_page
+    end
   end
 
   def set_per_page(per_page)
