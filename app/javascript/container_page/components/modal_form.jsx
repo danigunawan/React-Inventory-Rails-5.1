@@ -44,16 +44,14 @@ class ModalForm extends Component {
   render(){
     return(
       <Modal show={this.props.showModal} onHide={this.props.hideModal}>
-        <form>
-          <Modal.Header closeButton>
-            <Modal.Title>Add Container</Modal.Title>
-          </Modal.Header>
-          {this.renderModalBody()}
-          <Modal.Footer>
-            <Button bsStyle='primary' onClick={this.props.submitForm}>Submit</Button>
-            <Button onClick={this.props.hideModal}>Close</Button>
-          </Modal.Footer>
-        </form>
+        <Modal.Header closeButton>
+          <Modal.Title>Add Container</Modal.Title>
+        </Modal.Header>
+        {this.renderModalBody()}
+        <Modal.Footer>
+          <Button bsStyle='primary' onClick={() => this.props.submitForm(this.props.form_url, this.props.form_method)}>Submit</Button>
+          <Button onClick={this.props.hideModal}>Close</Button>
+        </Modal.Footer>
       </Modal>
     )
   }
